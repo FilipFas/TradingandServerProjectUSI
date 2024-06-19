@@ -26,7 +26,6 @@ Infrastructure: Virtual Private Server (VPS) Linux environment, provided by Rack
 
 
 ## Contributors
-- Di Gennaro Leonardo, Student Master in Finance, Minor Quantitative Finance (digenl@usi.ch)
 - Fasoli Filippo, Student Master in Finance, Minor Quantitative Finance (fasolfi@usi.ch)
 - Fornaio Angelo, Student Master in Finance, Minor Quantitative Finance
 - Morando Marco, Student Master in Finance, Minor Digital Finance
@@ -55,7 +54,7 @@ Complete this steps the website is only and is now accessible at the following [
 
 
 ### Algotrading Bot
-The Algotrading Bot runs using Python, before running it check if all the requirements are correctly installed ([Bot Requirements](/requirements.txt)). If not sure, run the following code:
+The Algotrading Bot runs using Python, before running it check if all the requirements are correctly installed ([Bot Requirements](/TradingBot/requirements.txt)). If not sure, run the following code:
 ```bash
 pip install -r requirements.txt
 ```
