@@ -1,0 +1,6 @@
+{
+    "binance": {
+        "api_key": "insert your key here",
+        "api_secret": "insert your key here"
+    }
+}
