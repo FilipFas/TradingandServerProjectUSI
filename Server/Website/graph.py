@@ -4,21 +4,25 @@ import matplotlib.pyplot as plt
 import pandas as pd
 import io
 import base64
+import matplotlib.dates as mdates
 
 app = FastAPI()
 
 def generate_graph_html(dataset):
-    # Generate a simple plot using Matplotlib for the dataset
-    plt.figure(figsize=(8, 6))
-    plt.plot(dataset, color='#007bff', linewidth=2, label='Strategy Performance')
-    plt.title('Strategy Performance', fontsize=20, fontweight='bold', color='#333')
+    # Setup the plot
+    plt.figure(figsize=(10, 6))
+    plt.plot(dataset['date'], dataset['nav'], color='#007bff', linewidth=2, label='NAV Performance')
+    plt.title('NAV Performance Over Time', fontsize=20, fontweight='bold', color='#333')
     plt.xlabel('Date', fontsize=16, fontweight='bold', color='#333')
-    plt.ylabel('Portfolio Value', fontsize=16, fontweight='bold', color='#333')
+    plt.ylabel('NAV (USD)', fontsize=16, fontweight='bold', color='#333')
+    plt.gca().xaxis.set_major_formatter(mdates.DateFormatter('%Y-%m-%d'))  # Formatting the date
+    plt.gca().xaxis.set_major_locator(mdates.MonthLocator())  # Setting major ticks to be at every month
+    plt.gcf().autofmt_xdate()  # Rotation for better alignment of date labels
     plt.legend(fontsize=14)
     plt.grid(True, linestyle='--', alpha=0.7)
     plt.tight_layout()
-    
-    # Convert the plot to base64 encoded image for the dataset
+
+    # Convert the plot to base64 encoded image
     buffer = io.BytesIO()
     plt.savefig(buffer, format='png')
     buffer.seek(0)
@@ -29,6 +33,7 @@ def generate_graph_html(dataset):
     html_content = f"""
         <html>
         <head>
+            <title>NAV Performance Graph</title>
             <style>
                 body {{
                     font-family: 'Arial', sans-serif;
@@ -37,21 +42,13 @@ def generate_graph_html(dataset):
                     padding: 0;
                 }}
                 .container {{
-                    max-width: 800px;
+                    max-width: 1000px;
                     margin: 50px auto;
                     padding: 20px;
                     background-color: #fff;
                     border-radius: 20px;
                     box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-                    animation: slideInUp 0.5s ease;
                     text-align: center;
-                }}
-                .graph {{
-                    margin: 20px auto;
-                    padding: 20px;
-                    background-color: #fff;
-                    border-radius: 20px;
-                    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
                 }}
                 .graph img {{
                     max-width: 100%;
@@ -72,9 +69,8 @@ def generate_graph_html(dataset):
         </head>
         <body>
             <div class="container">
-                <h1>Graph Data</h1>
+                <h1>NAV Performance Graph</h1>
                 <div class="graph">
-                    <h2>Strategy Performance</h2>
                     <img src='data:image/png;base64,{plot_data}'/>
                 </div>
             </div>
