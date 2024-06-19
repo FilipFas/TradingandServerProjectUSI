@@ -12,17 +12,18 @@ from mysql.connector import Error
 ```bash
 def load_data():
     try:
+        # Establish a connection to the MySQL database
         connection = mysql.connector.connect(
             host='localhost',
             database='trading_bot',
             user='root',
-            password='your_mysql_root_password'  # replace with your MySQL root password
+            password='your_mysql_root_password'  # Replace with your actual MySQL root password
         )
 
         if connection.is_connected():
             cursor = connection.cursor()
             
-            # SQL command to load data
+            # SQL command to load data with current server date and time
             load_data_sql = """
             LOAD DATA INFILE '/var/lib/mysql-files/trade_results.csv'
             INTO TABLE options
@@ -30,29 +31,32 @@ def load_data():
             ENCLOSED BY '"'
             LINES TERMINATED BY '\\n'
             IGNORE 1 ROWS
-            (ticker, @date, nav, type, signal_price, quantity, opened, @closed, vol, @returns, @entry_time, @closing_time)
+            (ticker, @dummy_date, nav, type, signal_price, quantity, opened, @closed, vol, @returns, @dummy_entry_time, @dummy_closing_time)
             SET 
-                date = STR_TO_DATE(@date, '%Y-%m-%d %H:%i:%s'),
+                date = NOW(),
                 closed = NULLIF(@closed, ''),
                 returns = NULLIF(@returns, ''),
-                entry_time = STR_TO_DATE(NULLIF(@entry_time, ''), '%Y-%m-%d %H:%i:%s'),
-                closing_time = STR_TO_DATE(NULLIF(@closing_time, ''), '%Y-%m-%d %H:%i:%s');
+                entry_time = NOW(),
+                closing_time = NOW();
             """
             cursor.execute(load_data_sql)
             connection.commit()
-            print("Data loaded successfully from CSV to MySQL table")
+            print("Data loaded successfully from CSV to MySQL table with current server time")
 
     except Error as e:
         print(f"Error: {e}")
 
     finally:
-        if connection.is_connected():
+        # Ensure that the connection is closed properly
+        if connection and connection.is_connected():
             cursor.close()
             connection.close()
             print("MySQL connection is closed")
+
 # Run the function
 if __name__ == "__main__":
     load_data()
+
 ```
 ## Make the Script Executable
 Make sure the script has execute permissions:
