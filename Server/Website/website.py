@@ -187,7 +187,6 @@ async def read_root():
             <ul>
                 <li><a href="#hero">Home</a></li>
                 <li><a href="#strategy">Strategy</a></li>
-                <li><a href="#backtest">Backtest</a></li>
                 <li><a href="#graphics">Graphics</a></li>
                 <li><a href="/docs">API Docs</a></li>
             </ul>
@@ -207,12 +206,6 @@ async def read_root():
                 <button class="btn-secondary" onclick="window.location.href='https://github.com/Leonardodigi00/TradingProject';">Try Strategy</button>
             </div>
 
-            <div id="backtest" class="section">
-                <h2>BACKTEST</h2>
-                <p>Click here to see the results of Gelo's wonderful strategy on BTC.</p>
-                <button class="btn-secondary" onclick="location.href='/results-code'">See Backtest</button>
-            </div>
-
             <div id="graphics" class="section">
                 <h2>GRAPHICS</h2>
                 <p>Click <a href="/graph">here</a> to access all the relative graphics.</p>
@@ -221,7 +214,7 @@ async def read_root():
         </div>
         <footer>
             <div class="container">
-                <p>Developed by Angelo, Filippo, <a href="/results">here</a> Leonardo and Marco for the Programming in Finance and Economics II at Università della Svizzera Italiana.</p>
+                <p>Developed by Angelo, Filippo, and Marco for the Programming in Finance and Economics II Course at Università della Svizzera Italiana.</p>
             </div>
         </footer>
     </body>
