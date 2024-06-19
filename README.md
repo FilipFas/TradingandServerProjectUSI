@@ -32,7 +32,7 @@ Infrastructure: Virtual Private Server (VPS) Linux environment, provided by Rack
 - Morando Marco, Student Master in Finance, Minor Digital Finance
 
 ## License
-Here you can access the license: [MIT License](/LICENSE.md)
+Here you can access the license: [MIT License](/LICENSE)
 
 
 ## Installation and Usage
