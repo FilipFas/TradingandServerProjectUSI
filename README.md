@@ -5,7 +5,7 @@ This project has been developed according to the instruction given by Prof. Pete
 ## Project Description
 The TradingProject aims to leverage a Virtual Private Server (VPS) to execute an algorithmic trading bot. The bot is designed to interact with the Crypto market, execute trades based on a predefined strategy, and store the results for analysis. Additionally, the project includes functionality to display these trading results in a user-friendly format.
 
-Results can be consulted here: https\\....
+Results can be consulted here: https\\www.algotradingproject.online
 
 Folder structure:
 ```bash
@@ -62,9 +62,7 @@ To access the Binance API, and so to run the bot, is important to create new API
 
 In the dedicated page is possible to check each function and what it does ([Functions](/TradingBot/functions.py)). After that you can run the program contained in [main.py](/TradingBot/main.py). 
 
-Some changes can be done to the following parameters: ...
-
-*Other changes can be done but we reserve them to the curiosity of the reader. We also suggest, when making changes, to double check everything to avoid unpleasent errors.*
+*Changes can be done but we reserve them to the curiosity of the reader. We also suggest, when making changes, to double check everything to avoid unpleasent errors.*
 
 ## Project Status
 The TradingProject is currently under active development. We are continuously refining the algorithmic trading strategy and enhancing the display of trading results. 
