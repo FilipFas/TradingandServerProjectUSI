@@ -5,7 +5,7 @@ This project has been developed according to the instruction given by Prof. Pete
 ## Project Description
 The TradingProject aims to leverage a Virtual Private Server (VPS) to execute an algorithmic trading bot. The bot is designed to interact with the Crypto market, execute trades based on a predefined strategy, and store the results for analysis. Additionally, the project includes functionality to display these trading results in a user-friendly format.
 
-Results can be consulted here: https\\www.algotradingproject.online
+Results can be consulted here: [https\\www.algotradingproject.online](https://algotradingproject.online/)
 
 Folder structure:
 ```bash
