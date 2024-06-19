@@ -19,7 +19,7 @@ TradingandServerProjectUSI/
 ## Technologies Used
 Programming Languages: Python, HTML, SQL.
 
-Frameworks/Libraries: pandas, numpy, Flask, Binance, FastAPI, pathlib, graph, jinja2, matplotlib, io, base64
+Frameworks/Libraries: pandas, numpy, Flask, Binance, FastAPI, pathlib, graph, jinja2, matplotlib, io, base64, websockets
 
 Infrastructure: Virtual Private Server (VPS) Linux environment, provided by Racknerd.
 
