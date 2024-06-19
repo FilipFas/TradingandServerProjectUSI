@@ -23,6 +23,14 @@ Frameworks/Libraries: pandas, numpy, Flask, Binance, FastAPI, pathlib, graph, ji
 
 Infrastructure: Virtual Private Server (VPS) Linux environment, provided by Racknerd.
 
+## Contributors
+- Fasoli Filippo, Student Master in Finance, Minor Quantitative Finance (fasolfi@usi.ch)
+- Fornaio Angelo, Student Master in Finance, Minor Quantitative Finance
+- Morando Marco, Student Master in Finance, Minor Digital Finance
+
+## License
+Here you can access the license: [MIT License](/LICENSE)
+
 ## Use of Generative AI
 
 ### Overview
@@ -51,15 +59,6 @@ The use of Generative AI tools like ChatGPT-4 and GitHub Copilot:
 - **Enhanced Code Quality**: Improved the overall quality and readability of the codebase.
 - **Facilitated Learning**: Enabled quick learning of new technologies.
 - **Streamlined Documentation**: Ensured comprehensive and well-structured documentation.
-
-## Contributors
-- Fasoli Filippo, Student Master in Finance, Minor Quantitative Finance (fasolfi@usi.ch)
-- Fornaio Angelo, Student Master in Finance, Minor Quantitative Finance
-- Morando Marco, Student Master in Finance, Minor Digital Finance
-
-## License
-Here you can access the license: [MIT License](/LICENSE)
-
 
 ## Installation and Usage
 ### VPS Server
