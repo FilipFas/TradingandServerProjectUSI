@@ -54,3 +54,7 @@ If the price of a stock rises and touches the upper Bollinger Band and simultane
 ## Comment on the strategy
 
 This strategy combines two technical analysis indicators to make buy and sell decisions based on signals that occur simultaneously. By using Bollinger Bands and RSI, we can identify moments when a stock's price is too high or too low, allowing us to enter and exit the market in a more informed and potentially profitable manner.
+
+## How to Use the Bot
+
+
