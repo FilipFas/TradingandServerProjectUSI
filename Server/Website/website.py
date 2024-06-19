@@ -232,15 +232,15 @@ def fetch_nav_values():
             password=DB_PASSWORD
         )
         if connection.is_connected():
-            query = "SELECT nav FROM options WHERE nav IS NOT NULL"
+            query = "SELECT date, nav FROM options WHERE nav IS NOT NULL ORDER BY date"
             df = pd.read_sql(query, connection)
-            return df['nav'].tolist()  # Return NAV values as a list
+            return df  # Return DataFrame directly
         else:
             print("Failed to connect to the database.")
-            return []
+            return pd.DataFrame()
     except mysql.connector.Error as e:
         print(f"Error: {e}")
-        return []
+        return pd.DataFrame()
     finally:
         if connection and connection.is_connected():
             connection.close()
@@ -248,13 +248,12 @@ def fetch_nav_values():
 @app.get("/graph", response_class=HTMLResponse)
 async def get_graph_html(request: Request):
     # Fetch NAV values from the database
-    nav_values = fetch_nav_values()
+    nav_data = fetch_nav_values()
     
     # Generate graph HTML using the NAV values
-    graph_html = generate_graph_html(nav_values)
+    graph_html = generate_graph_html(nav_data)  # Ensure this function is prepared to handle DataFrame with 'date' and 'nav'
     return graph_html
 
 if __name__ == "__main__":
     import uvicorn
     uvicorn.run(app, host="0.0.0.0")
-
