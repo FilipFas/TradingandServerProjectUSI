@@ -24,7 +24,7 @@ After=network.target
 
 [Service]
 Type=simple
-ExecStart=/usr/bin/python3 /path/to/your/script/trade_bot.py
+ExecStart=/usr/bin/python3 /path/to/your/script/bot.py
 WorkingDirectory=/path/to/your/script
 StandardOutput=append:/path/to/your/script/trade_bot.log
 StandardError=append:/path/to/your/script/trade_bot_error.log
