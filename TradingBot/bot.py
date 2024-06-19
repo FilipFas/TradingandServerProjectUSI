@@ -7,11 +7,11 @@ import websockets
 import json
 from binance.client import AsyncClient
 from binance.enums import *
-from binance.exceptions import BinanceAPIException, BinanceOrderException
+from binance.exceptions import BinanceAPIException
 import ssl
 import certifi
 from collections import deque
-import uuid  # To generate unique trade IDs
+import uuid
 
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
 
@@ -37,9 +37,9 @@ def get_API(api_path):
 api_keys = get_API(API_path)
 API_KEY, API_SECRET = api_keys
 
-# Global position dictionary
+# Global position dictionary and trade ID tracker
 current_position = {'BTCUSDT': 0}  # Neutral position
-trade_ids = {'BTCUSDT': None}  # Track trade IDs
+active_trades = {}  # Track active trades with their trade IDs
 
 # Global variable to store the LOT_SIZE, MIN_NOTIONAL, and TICK_SIZE filters
 LOT_SIZE = None
@@ -51,7 +51,7 @@ pending_order = None
 # DataFrame to store trade results
 csv_filename = 'trade_results.csv'
 if not os.path.isfile(csv_filename):
-    trade_results = pd.DataFrame(columns=['trade_id', 'ticker', 'date', 'nav', 'type', 'signal_price', 'quantity', 'opened', 'closed', 'vol', 'returns', 'entry_time', 'closing_time'])
+    trade_results = pd.DataFrame(columns=['trade_id', 'ticker', 'date', 'nav', 'type', 'signal_price', 'quantity', 'opened', 'closed', 'vol', 'entry_time', 'closing_time'])
     trade_results.to_csv(csv_filename, index=False)
 else:
     trade_results = pd.read_csv(csv_filename)
@@ -142,7 +142,7 @@ async def ensure_initial_balance(client, asset, required_balance):
         return False
     return True
 
-async def record_trade(trade_id, ticker, date, trade_type, signal_price, quantity, opened_price, closed_price, vol, returns, entry_time, closing_time, btc_price, btc_balance, usdt_balance, filename='trade_results.csv'):
+async def record_trade(trade_id, ticker, date, trade_type, signal_price, quantity, opened_price, closed_price, vol, entry_time, closing_time, btc_price, btc_balance, usdt_balance, filename='trade_results.csv'):
     nav = btc_balance * btc_price + usdt_balance
     new_trade = pd.DataFrame([{
         'trade_id': trade_id,
@@ -155,7 +155,6 @@ async def record_trade(trade_id, ticker, date, trade_type, signal_price, quantit
         'opened': opened_price,
         'closed': closed_price,
         'vol': vol,
-        'returns': returns,
         'entry_time': entry_time,
         'closing_time': closing_time
     }])
@@ -227,12 +226,12 @@ async def handle_long_order(client, symbol, lastrow, usdt_balance, btc_price, cu
 
             # Record the trade when opened
             trade_id = str(uuid.uuid4())
-            trade_ids[symbol] = trade_id
+            active_trades[symbol] = trade_id
             await record_trade(
                 trade_id=trade_id, ticker=symbol, date=current_time, trade_type='long',
                 signal_price=lastrow['close'], quantity=order_quantity,
                 opened_price=order_price, closed_price=None, vol=lastrow['volume'],
-                returns=None, entry_time=current_time, closing_time=None,
+                entry_time=current_time, closing_time=None,
                 btc_price=btc_price, btc_balance=await check_balance(client, 'BTC'), usdt_balance=await check_balance(client, 'USDT')
             )
             return order, await check_balance(client, 'BTC'), await check_balance(client, 'USDT')
@@ -272,12 +271,12 @@ async def handle_short_order(client, symbol, lastrow, btc_balance, btc_price, cu
 
             # Record the trade when opened
             trade_id = str(uuid.uuid4())
-            trade_ids[symbol] = trade_id
+            active_trades[symbol] = trade_id
             await record_trade(
                 trade_id=trade_id, ticker=symbol, date=current_time, trade_type='short',
                 signal_price=lastrow['close'], quantity=order_quantity,
                 opened_price=order_price, closed_price=None, vol=lastrow['volume'],
-                returns=None, entry_time=current_time, closing_time=None,
+                entry_time=current_time, closing_time=None,
                 btc_price=btc_price, btc_balance=await check_balance(client, 'BTC'), usdt_balance=await check_balance(client, 'USDT')
             )
             return order, await check_balance(client, 'BTC'), await check_balance(client, 'USDT')
@@ -316,11 +315,11 @@ async def close_long_position(client, symbol, lastrow, btc_balance, btc_price, c
                 await changepos(symbol, 'neutral')  # Update position to neutral after order fill
 
             # Update the trade record when closed
-            trade_id = trade_ids[symbol]
-            await update_trade(
-                trade_id=trade_id, closed_price=order_price, closing_time=current_time
-            )
-            trade_ids[symbol] = None
+            trade_id = active_trades.pop(symbol, None)
+            if trade_id:
+                await update_trade(
+                    trade_id=trade_id, closed_price=order_price, closing_time=current_time
+                )
             return order, await check_balance(client, 'BTC'), await check_balance(client, 'USDT')
         else:
             logging.error("Order not placed: Notional value below minimum required.")
@@ -358,11 +357,11 @@ async def close_short_position(client, symbol, lastrow, usdt_balance, btc_price,
                 await changepos(symbol, 'neutral')  # Update position to neutral after order fill
 
             # Update the trade record when closed
-            trade_id = trade_ids[symbol]
-            await update_trade(
-                trade_id=trade_id, closed_price=order_price, closing_time=current_time
-            )
-            trade_ids[symbol] = None
+            trade_id = active_trades.pop(symbol, None)
+            if trade_id:
+                await update_trade(
+                    trade_id=trade_id, closed_price=order_price, closing_time=current_time
+                )
             return order, await check_balance(client, 'BTC'), await check_balance(client, 'USDT')
         else:
             logging.error("Order not placed: Notional value below minimum required or insufficient USDT balance.")
@@ -439,19 +438,6 @@ async def trade_logic(client, data):
             order_filled = await check_order_status(client, pending_order['orderId'], symbol)
             if order_filled:
                 logging.info(f"Order {pending_order['orderId']} filled.")
-                if pending_order is not None:
-                    await asyncio.sleep(1)
-                    btc_balance = await check_balance(client, 'BTC')
-                    usdt_balance = await check_balance(client, 'USDT')
-                    logging.info(f"Updated BTC balance: {btc_balance}")
-                    logging.info(f"Updated USDT balance: {usdt_balance}")
-                    await record_trade(
-                        trade_id=str(uuid.uuid4()), ticker=symbol, date=current_time, trade_type='long' if current_position[symbol] == 1 else 'short',
-                        signal_price=lastrow['close'], quantity=pending_order['origQty'],
-                        opened_price=pending_order['price'], closed_price=None, vol=lastrow['volume'],
-                        returns=None, entry_time=current_time, closing_time=None,
-                        btc_price=btc_price, btc_balance=btc_balance, usdt_balance=usdt_balance
-                    )
                 pending_order = None
                 if current_position[symbol] == 1 and close_long_condition:
                     await changepos(symbol, 'neutral')
