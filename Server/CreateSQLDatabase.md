@@ -66,12 +66,13 @@ FIELDS TERMINATED BY ','
 ENCLOSED BY '"'
 LINES TERMINATED BY '\n'
 IGNORE 1 ROWS
-(trade_id, ticker, @date, nav, type, signal_price, quantity, opened, @closed, vol, @entry_time, @closing_time)
+(trade_id, ticker, @dummy_date, nav, type, signal_price, quantity, opened, @dummy_closed, vol, @dummy_entry_time, @dummy_closing_time)
 SET 
-  date = STR_TO_DATE(@date, '%Y-%m-%d %H:%i:%s'),
-  closed = NULLIF(@closed, ''),
-  entry_time = STR_TO_DATE(NULLIF(@entry_time, ''), '%Y-%m-%d %H:%i:%s'),
-  closing_time = STR_TO_DATE(NULLIF(@closing_time, ''), '%Y-%m-%d %H:%i:%s');
+  date = NOW(),  -- Set current date and time
+  closed = NULLIF(@dummy_closed, ''), 
+  entry_time = NOW(),  -- Set current date and time
+  closing_time = NOW();  -- Set current date and time
+
 ```
 
 ### Explanation:
