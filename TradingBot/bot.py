@@ -501,7 +501,7 @@ async def main():
                         if len(kline_data) > 20:
                             df = pd.DataFrame(kline_data)
                             df['RSI'] = ta.momentum.RSIIndicator(df['close'], window=14).rsi()
-                            bb = ta.volatility.BollingerBands(df['close'], window=20, window_dev=1)
+                            bb = ta.volatility.BollingerBands(df['close'], window=20, window_dev=2)
                             df['upper_bb'] = bb.bollinger_hband()
                             df['lower_bb'] = bb.bollinger_lband()
 
