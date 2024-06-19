@@ -9,12 +9,12 @@ Results can be consulted here: https\\....
 
 Folder structure:
 ```bash
-TradingProject/
+TradingandServerProjectUSI/
     Server/
-    Webisite/
-    Backtest/
+        Website/
     TradingBot/
     README.md
+    LICENSE
 ```
 ## Technologies Used
 Programming Languages: Python, HTML, SQL.
@@ -46,7 +46,7 @@ After that you need to setup your VPS to better suit the purpose of the project.
 Other informations on how we setup our SQL database on the VPS can be found [here](Server/CreateSQLdatabase.md).
 
 #### Website
-We used the powefull Python package [FastAPI](https://fastapi.tiangolo.com/) for most of the work on the VPS, to create the website and connect it with the VPS. [Here](/Website) you can find how to replicate our steps.
+We used the powefull Python package [FastAPI](https://fastapi.tiangolo.com/) for most of the work on the VPS, to create the website and connect it with the VPS. [Here](/Server/Website) you can find how to replicate our steps.
 
 To furthere proceed with the project we purchased a domain for our website from [Namecheap](https://www.namecheap.com/domains) and connected it with a SSH Certificate to update the website from http to https (a more secure protocol). To do that we used the free platform [Certbot](https://certbot.eff.org), that not only provide a SSH Certificate for free but also present all the necessary steps to install it in a simple way.
 
@@ -59,9 +59,9 @@ The Algotrading Bot runs using Python, before running it check if all the requir
 ```bash
 pip install -r requirements.txt
 ```
-To access the Binance API, and so to run the bot, is important to create new API keys and update the [relative file](/api_keys.json) containing them. Here the [link](https://testnet.binance.vision/) to create the API keys (requires a GitHub account to access).
+To access the Binance API, and so to run the bot, is important to create new API keys and update the [relative file](/TradingBot/api_keys.json) containing them. Here the [link](https://testnet.binancefuture.com/en/futures/BTCUSDT) to create the API keys (requires the creation of an account to access).
 
-In the dedicated page is possible to check each function and what it does ([Functions](/functions.py)). After that you can run the program contained in [main.py](/main.py). 
+In the dedicated page is possible to check each function and what it does ([Functions](/TradingBot/functions.py)). After that you can run the program contained in [main.py](/TradingBot/main.py). 
 
 Some changes can be done to the following parameters: ...
 
@@ -75,7 +75,7 @@ The TradingProject is currently under active development. We are continuously re
 *Also the website will be accessible only during the following hours (from 6:00 to 18:00 CET) to avoid excessive bandwidth usage.*
 
 ## Contact Information
-For inquiries, feedback, or contributions, please contact [insert contact information].
+For inquiries, feedback, or contributions, please contact fasolfi@usi.ch.
 
 ## Credits and Attribution
 Financial data sourced from BinanceAPI .
