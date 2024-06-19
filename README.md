@@ -23,7 +23,34 @@ Frameworks/Libraries: pandas, numpy, Flask, Binance, FastAPI, pathlib, graph, ji
 
 Infrastructure: Virtual Private Server (VPS) Linux environment, provided by Racknerd.
 
+## Use of Generative AI
 
+### Overview
+Generative AI tools, specifically ChatGPT-4 and GitHub Copilot, were extensively used to enhance productivity, code quality, and project documentation.
+
+### AI Tools Utilized
+- **ChatGPT-4**: Assisted with generating, refining, and debugging code, as well as drafting comprehensive documentation.
+- **GitHub Copilot**: Helped write boilerplate code, suggest improvements, and automate repetitive coding tasks.
+
+### Applications of AI in the Project
+1. **Code Enhancement and Optimization**:
+    - **ChatGPT-4**: Optimized the trading algorithm for better performance.
+    - **GitHub Copilot**: Provided inline code suggestions and improved code readability.
+
+2. **Problem Solving and Debugging**:
+    - **ChatGPT-4**: Offered solutions to coding issues and explained complex concepts.
+    - **GitHub Copilot**: Identified potential errors and suggested fixes.
+
+3. **HTML and Web Development**:
+    - **ChatGPT-4**: Created and refined HTML templates for the web interface.
+    - **GitHub Copilot**: Suggested HTML and CSS code snippets for quick development.
+
+### Impact of Generative AI
+The use of Generative AI tools like ChatGPT-4 and GitHub Copilot:
+- **Accelerated Development**: Reduced the time required for coding and debugging.
+- **Enhanced Code Quality**: Improved the overall quality and readability of the codebase.
+- **Facilitated Learning**: Enabled quick learning of new technologies.
+- **Streamlined Documentation**: Ensured comprehensive and well-structured documentation.
 
 ## Contributors
 - Fasoli Filippo, Student Master in Finance, Minor Quantitative Finance (fasolfi@usi.ch)
