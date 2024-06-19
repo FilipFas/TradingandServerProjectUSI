@@ -203,7 +203,7 @@ async def read_root():
                 <h2>GELO SUPER STRATEGY</h2>
                 <p>This strategy applies a particular combination of a simple moving average with a rebound factor to BTC.</p>
                 <p>Click here to see the code for replicating this strategy.</p>
-                <button class="btn-secondary" onclick="window.location.href='https://github.com/Leonardodigi00/TradingProject';">Try Strategy</button>
+                <button class="btn-secondary" onclick="window.location.href='https://github.com/FilipFas/TradingandServerProjectUSI';">Try Strategy</button>
             </div>
 
             <div id="graphics" class="section">
