@@ -193,15 +193,15 @@ async def read_root():
         </nav>
         <div id="hero" class="hero">
             <div>
-                <h1>ALGOTRADING STRATEGIES ON CRYPTO</h1>
+                <h1>ALGOTRADING STRATEGY ON CRYPTO</h1>
                 <p>Our API provides real time performance for a trading that uses Bollinger Bands and RSI as indicators.</p>
                 <button class="btn-primary" onclick="location.href='/docs'">Explore API Documentation</button>
             </div>
         </div>
         <div class="container">
             <div id="strategy" class="section">
-                <h2>GELO SUPER STRATEGY</h2>
-                <p>This strategy applies a particular combination of a simple moving average with a rebound factor to BTC.</p>
+                <h2>BOLLINGER-RSI CONVERGENCE STRATEGY</h2>
+                <p>This strategy applies a unique combination of Bollinger Bands and the Relative Strength Index (RSI) to identify optimal trading opportunities in BTC.</p>
                 <p>Click here to see the code for replicating this strategy.</p>
                 <button class="btn-secondary" onclick="window.location.href='https://github.com/FilipFas/TradingandServerProjectUSI';">Try Strategy</button>
             </div>
@@ -250,9 +250,8 @@ async def get_graph_html(request: Request):
     # Fetch NAV values from the database
     nav_values = fetch_nav_values()
     
-    dataset2 = [2, 3, 4, 5, 6, 3, 2, 5, 3]  # Example secondary dataset
     # Generate graph HTML using the NAV values
-    graph_html = generate_graph_html(nav_values, dataset2)
+    graph_html = generate_graph_html(nav_values)
     return graph_html
 
 if __name__ == "__main__":
