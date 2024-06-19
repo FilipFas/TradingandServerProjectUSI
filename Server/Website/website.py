@@ -194,7 +194,7 @@ async def read_root():
         <div id="hero" class="hero">
             <div>
                 <h1>ALGOTRADING STRATEGIES ON CRYPTO</h1>
-                <p>Our API provides historical data, real-time data, and backtesting results for various trading strategies.</p>
+                <p>Our API provides real time performance for a trading that uses Bollinger Bands and RSI as indicators.</p>
                 <button class="btn-primary" onclick="location.href='/docs'">Explore API Documentation</button>
             </div>
         </div>
@@ -221,12 +221,6 @@ async def read_root():
     </html>
     """
     return HTMLResponse(content=html_content)
-
-# Create a new endpoint for displaying the results of the strategy backtest
-@app.get("/results-code")
-async def results_code():
-    python_content = Path("results-code.py").read_text()
-    return HTMLResponse(content=python_content, media_type="text/plain")
 
 def fetch_nav_values():
     connection = None
