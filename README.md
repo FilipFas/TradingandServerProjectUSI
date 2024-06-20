@@ -25,8 +25,8 @@ Infrastructure: Virtual Private Server (VPS) Linux environment, provided by Rack
 
 ## Contributors
 - Fasoli Filippo, Student Master in Finance, Minor Quantitative Finance (fasolfi@usi.ch)
-- Fornaio Angelo, Student Master in Finance, Minor Quantitative Finance
-- Morando Marco, Student Master in Finance, Minor Digital Finance
+- Fornaio Angelo, Student Master in Finance, Minor Quantitative Finance (fornaan@usi.ch)
+- Morando Marco, Student Master in Finance, Minor Digital Finance (moranm@usi.ch)
 
 ## License
 Here you can access the license: [MIT License](/LICENSE)
