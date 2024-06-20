@@ -73,6 +73,8 @@ crontab -e
 Add the following line to schedule the script to run at regular intervals. For example, to run the script every 5 minutes:
 ```bash
 */5 * * * * /usr/bin/python3 /path/to/load_csv_to_db.py >> /path/to/load_csv_to_db.log 2>&1
+*/5 * * * * /root/project/update_database.sh
+
 ```
 This cron job entry does the following:
 ```bash
