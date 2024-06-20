@@ -232,7 +232,7 @@ def fetch_nav_values():
             password=DB_PASSWORD
         )
         if connection.is_connected():
-            query = "SELECT date, nav FROM options WHERE nav IS NOT NULL ORDER BY date"
+            query = "SELECT date, nav FROM trade_results WHERE nav IS NOT NULL ORDER BY date"
             df = pd.read_sql(query, connection)
             return df  # Return DataFrame directly
         else:
