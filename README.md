@@ -86,7 +86,7 @@ pip install -r requirements.txt
 ```
 To access the Binance Futures API, and so to run the bot, is important to create new API keys and update the [relative file](/TradingBot/api_keys.json) containing them. Here the [link](https://testnet.binancefuture.com/en/futures/BTCUSDT) to create the API keys (requires the creation of an account to access). This gives access to a paper trading account with 15'000 USDT. 
 
-After that you can run the program contained in [main.py](/TradingBot/bot.py). 
+After that you can run the program contained in [bot.py](/TradingBot/bot.py). 
 
 *Changes can be done but we reserve them to the curiosity of the reader. We also suggest, when making changes, to double check everything to avoid unpleasent errors.*
 
