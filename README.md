@@ -68,7 +68,7 @@ Firstly, it's important to buy the right VPS. We suggest purchasing one with at 
 
 After that you need to setup your VPS to better suit the purpose of the project. [Here](Server/VPS_Setup.md) the instructions that we used.
 
-Other informations on how we setup our SQL database on the VPS can be found [here](Server/Website/CreateSQLDatabase.md).
+Other informations on how we setup our SQL database on the VPS can be found [here](Server/CreateSQLDatabase.md).
 
 #### Website
 We used the powefull Python package [FastAPI](https://fastapi.tiangolo.com/) for most of the work on the VPS, to create the website and connect it with the VPS. [Here](/Server/Website) you can find how to replicate our steps.
