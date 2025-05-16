@@ -17,7 +17,7 @@ CREATE DATABASE trading_bot;
 USE trading_bot;
 ```
 ## Creating the table for trade results:
-sql
+```sql
 CREATE TABLE trade_results (
     trade_id VARCHAR(36),
     ticker VARCHAR(10),
@@ -32,6 +32,7 @@ CREATE TABLE trade_results (
     entry_time DATETIME,
     closing_time DATETIME
 );
+```
 ## Move the CSV File to the Allowed Directory
 MySQL has a security feature that restricts the directories from which you can load files using the LOAD DATA INFILE command. You need to move your CSV file to a directory allowed by MySQL.
 
