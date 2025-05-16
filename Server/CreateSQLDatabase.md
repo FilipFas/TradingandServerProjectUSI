@@ -17,22 +17,73 @@ CREATE DATABASE trading_bot;
 USE trading_bot;
 ```
 ## Creating the table for trade results:
-```sql
+/*
+===================================================================================
+ Table: trade_results
+
+ Purpose:
+   Stores the results of individual trading signals, including entry/exit times,
+   prices, quantities, and net asset values (NAV). This table can be used to
+   analyze the performance of each trade over time.
+
+ Columns:
+   trade_id      – Unique identifier (UUID) for each trade record.
+   ticker        – Stock symbol or instrument code (e.g. “AAPL”, “GOOG”).
+   date          – Date of the trade signal (UTC).
+   nav           – Net Asset Value of the portfolio or strategy at the time of signal.
+   type          – Direction of the trade: typically “long” or “short”.
+   signal_price  – Price at which the trading signal was generated.
+   quantity      – Number of shares/contracts traded (up to 8 decimal places).
+   opened        – Executed opening price for the trade.
+   closed        – Executed closing price when the trade was exited.
+   vol           – Volume traded at the time of signal (e.g. number of shares traded).
+   entry_time    – Exact timestamp when the position was opened.
+   closing_time  – Exact timestamp when the position was closed.
+
+ Constraints & Indexes (suggested enhancements):
+   • PRIMARY KEY on (trade_id) to enforce uniqueness.
+   • INDEX on (ticker, date) for faster lookups by symbol and date.
+   • Consider CHECK(type IN ('long','short')) for data integrity.
+
+===================================================================================
+*/
 CREATE TABLE trade_results (
-    trade_id VARCHAR(36),
-    ticker VARCHAR(10),
-    date DATETIME,
-    nav DECIMAL(15, 2),
-    type VARCHAR(10),
-    signal_price DECIMAL(15, 2),
-    quantity DECIMAL(15, 8),
-    opened DECIMAL(15, 2),
-    closed DECIMAL(15, 2),
-    vol DECIMAL(15, 2),
-    entry_time DATETIME,
-    closing_time DATETIME
+    -- Unique identifier for this trade (e.g. UUID)
+    trade_id VARCHAR(36) PRIMARY KEY,
+
+    -- Stock or instrument ticker symbol
+    ticker VARCHAR(10) NOT NULL,
+
+    -- Date when the trade signal was generated
+    date DATETIME NOT NULL,
+
+    -- Net Asset Value at the moment of the signal
+    nav DECIMAL(15, 2) NOT NULL,
+
+    -- Direction of the trade: 'long' for buy signals, 'short' for sell signals
+    type VARCHAR(10) NOT NULL,
+
+    -- Price at which the trading signal was issued
+    signal_price DECIMAL(15, 2) NOT NULL,
+
+    -- Quantity of the instrument traded (precision up to 8 decimal places)
+    quantity DECIMAL(15, 8) NOT NULL,
+
+    -- Actual opening/execution price when the trade was entered
+    opened DECIMAL(15, 2) NOT NULL,
+
+    -- Actual closing/execution price when the trade was exited
+    closed DECIMAL(15, 2) NOT NULL,
+
+    -- Trading volume at the time of signal (instrument-specific units)
+    vol DECIMAL(15, 2) NOT NULL,
+
+    -- Timestamp when the position was opened (could differ from 'date')
+    entry_time DATETIME NOT NULL,
+
+    -- Timestamp when the position was closed
+    closing_time DATETIME NOT NULL
 );
-```
 ## Move the CSV File to the Allowed Directory
 MySQL has a security feature that restricts the directories from which you can load files using the LOAD DATA INFILE command. You need to move your CSV file to a directory allowed by MySQL.
 
